@@ -1,6 +1,6 @@
 {
   "name": "cashport-js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Cashport-JS allows to integrate authorized payment and KYC features in your Server Side App.",
   "main": "index.js",
   "scripts": {},
