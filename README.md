@@ -4,7 +4,7 @@ A Typescript SDK to integrate CashPort in your apps. https://cashport.io
 # Installing
 Include the dependency in your project:
 ```javascript
-npm install cashport-sdk --save
+npm install cashport-js --save
 ```
 
 # Getting Started
@@ -30,51 +30,39 @@ First of all, you have to include an html element where Cashport will build the 
 
 Some basic imports and initializations: 
 
-```typescript
-import {
+```javascript
+const {
     AuthorizationRequest,
     Cashport,
     GrantedAuthorization,
     PaymentRequestFactory,
     PersonalInfoPermission,
     SignTransactionRequestBuilder
-} from 'cashport-sdk';
+} = require('cashport-js');
 
 const appId = 'your-app-id';
-let cashport: Cashport = new Cashport();
+let cashport = new Cashport();
 ```
 
 Then you can enable the Cashport login:
 
-```typescript
+```javascript
 let cashport = new Cashport();
 let permissions = [PersonalInfoPermission.HANDLE, PersonalInfoPermission.FIRST_NAME, PersonalInfoPermission.LAST_NAME, PersonalInfoPermission.EMAIL];
 let authRequest = new AuthorizationRequest(permissions, appId);
-cashport.loadAuthorizationRequest('cashport-container', authRequest, {
+let uri = cashport.getAuthorizationURI(authRequest, {
     onDeny: () => {
-        // Authorization not granted :(
+     // request denied
     },
     onSuccess: (authorization) => {
-        let authToken = authorization.authToken;
-        let expirationTimestamp = authorization.expirationTimestamp;
-        let channelId = authorization.channelId;
-        let spendLimitInSatoshis = authorization.spendLimitInSatoshis;
-        
-        let personalInfo = authorization.personalInfo;
-        let handle = personalInfo.handle;
-        let firstName = personalInfo.firstName;
-        let lastName = personalInfo.lastName;
-        let email = personalInfo.email;
+     // request authorized
     }
 });
+
+console.log(uri); // This uri you can QRCode it or redirect user to it in order to login using the Handcash wallet app (if installed)
 ```
 
-Now the login button it's ready. So when the user clicks the button, the process can be perform in two different ways:
-1. If the user **has HandCash installed** in the same device, the app will be launched with the *Authorization Request*.
-2. If the device **does not have HandCash installed**, will display a QR code to be scanned by HandCash.
-
-In any case, you will get the *Granted Authorization* in the callback.
-
+You will get the *Granted Authorization* in the callback.
 
 ## 3. Create a Sign Transaction Request
 Once the authorization is granted you have all what you need to perform automatic payment requests, in addition to the personal information.
@@ -83,13 +71,12 @@ Let's see how to tip to a $handle.
 
 This is the code you need to create a *Sign Transaction Request* and handle the response. 
 
-```typescript
-function sendPayToHandlePaymentRequest(handle: string): void {
-    let request = SignTransactionRequestBuilder.useApiId(appId)
-        .withCredentials(grantedAuthorization.personalInfo.handle, grantedAuthorization.authToken, grantedAuthorization.channelId)
-        .addPayment(PaymentRequestFactory.create().getPayToHandle(handle, 2500))
+```javascript
+let request = SignTransactionRequestBuilder.useApiId(appId)
+        .withCredentials(senderHandle, authToken, channelId)
+        .addPayment(PaymentRequestFactory.create().getPayToAddress("aeku", 10000))
         .build();
-    cashport.sendSignTransactionRequest(request, {
+cashport.sendSignTransactionRequest(request, {
         onStart: () => {
             // Sending request...
         },
@@ -117,10 +104,10 @@ function sendPayToHandlePaymentRequest(handle: string): void {
         onInternalWalletError: (requestId) => {
             // Internal wallet error :(
         },
-        onBadRequest: (message: string, errorCode: number) => {
+        onBadRequest: (message, errorCode) => {
             // Bad request. WTF are your doing!?
         },
-        onAPICallError: (message: string) => {
+        onAPICallError: (message) => {
             // API Call error. We did something wrong :$
         }
     });
@@ -141,25 +128,4 @@ Try the demo at [try.cashport.io](https://try.cashport.io)
 #BringTheOasis
 ```
 
-# License
-MIT License
-
-Copyright (c) 2018 HandCash
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+This code is based on Handcash Cashport-typescript "cashport-sdk" library. If you appreciate this, please consider a donation to $aeku
