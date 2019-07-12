@@ -1,39 +1,29 @@
 {
   "name": "cashport-sdk",
-  "version": "0.0.14-alpha",
-  "description": "Cashport SDK allows to integrate authorized payment and KYC features in your webapp.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "watch": "npm run build --watch"
-  },
+  "version": "0.0.1",
+  "description": "Cashport SDK allows to integrate authorized payment and KYC features in your Server Side App.",
+  "main": "index.js",
+  "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HandCash/cashport-sdk-typescript.git"
+    "url": "git+https://github.com/ae-ku/cashport-js.git"
   },
   "keywords": [
     "cashport",
     "handcash",
-    "ts",
+    "js",
     "bch",
     "new-money"
   ],
-  "author": "rjseibane",
+  "author": "ae-ku",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/HandCash/cashport-sdk-typescript/issues"
+    "url": "https://github.com/ae-ku/cashport-js/issues"
   },
-  "homepage": "https://github.com/HandCash/cashport-sdk-typescript#readme",
-  "devDependencies": {
-    "@types/chrome": "0.0.74",
-    "@types/node": "^10.11.7",
-    "@types/pubnub": "^4.0.2",
-    "awesome-typescript-loader": "^5.2.1",
-    "typescript": "^3.1.1"
-  },
+  "homepage": "https://github.com/ae-ku/cashport-js#readme",
+  "devDependencies": {},
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "crypto": "^1.0.1",
     "pubnub": "^4.21.5"
   }
