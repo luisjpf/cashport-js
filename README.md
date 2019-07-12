@@ -68,7 +68,7 @@ This is the code you need to create a *Sign Transaction Request* and handle the 
 ```javascript
 let request = SignTransactionRequestBuilder.useApiId(appId)
         .withCredentials(senderHandle, authToken, channelId)
-        .addPayment(PaymentRequestFactory.create().getPayToAddress("aeku", 10000))
+        .addPayment(PaymentRequestFactory.create().getPayToHandle("aeku", 10000))
         .build();
 cashport.sendSignTransactionRequest(request, {
         onStart: () => {
