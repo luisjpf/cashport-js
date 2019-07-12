@@ -1,5 +1,5 @@
 # Cashport-JS - JavaScript / Node.JS Module
-A Typescript SDK to integrate CashPort in your apps. https://cashport.io
+A Javascript Module to Integrate Cashport into your Server-Side App / Backend. https://cashport.io
 
 # Installing
 Include the dependency in your project:
