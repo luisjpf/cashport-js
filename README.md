@@ -22,12 +22,6 @@ In the meanwhile you can use this `API_ID` to start developing.
 
 ## 2. Create an Authorization Request
 
-First of all, you have to include an html element where Cashport will build the custom components:
-
-```html
-<div id="cashport-container"></div>
-```
-
 Some basic imports and initializations: 
 
 ```javascript
