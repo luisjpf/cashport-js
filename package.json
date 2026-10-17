@@ -23,7 +23,7 @@
   "homepage": "https://github.com/ae-ku/cashport-js#readme",
   "devDependencies": {},
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.34.0",
     "crypto": "^1.0.1",
     "pubnub": "^4.21.5"
   }
