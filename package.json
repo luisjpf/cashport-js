@@ -25,6 +25,6 @@
   "dependencies": {
     "axios": "^0.34.0",
     "crypto": "^1.0.1",
-    "pubnub": "^4.21.5"
+    "pubnub": "^7.4.0"
   }
 }
